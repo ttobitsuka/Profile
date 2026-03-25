@@ -64,7 +64,7 @@ with tab3:
     # --- 【ここが追加部分！】 ---
     try:
         # ステップ2でアップロードした画像を読み込む
-        qr_image = Image.open("line-qr.png")
+        qr_image = Image.open("my_qrcode_1774412632091.jpg")
         
         # 画像を表示（width=200 で大きさを調整）
         st.image(qr_image, caption="My LINE QR Code", width=200)
