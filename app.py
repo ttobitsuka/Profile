@@ -1,6 +1,7 @@
 import streamlit as st
+from PIL import Image # 画像を扱うためのライブラリ
 
-# ページ設定（スマホで見やすい幅にする）
+# 1. ページ設定
 st.set_page_config(page_title="My Digital Profile", layout="centered")
 
 # --- カスタムCSS（デザインをかっこよくする） ---
@@ -58,15 +59,27 @@ with tab3:
     st.write("お気軽にLINE追加してください！")
     
     # LINEのURL（自分のQRコードのURLをここに入れる）
-    line_url = "https://line.me/ti/p/YOUR_ID_HERE" 
+    # line_url = "https://line.me/ti/p/YOUR_ID_HERE" 
     
-    if st.button("🟢 LINEでつながる"):
-        st.markdown(f'<a href="{line_url}" target="_blank">ここをタップしてLINEを開く</a>', unsafe_allow_html=True)
-    
-    st.caption("※QRコードをスクショしてここに貼るのもアリです")
+    # --- 【ここが追加部分！】 ---
+    try:
+        # ステップ2でアップロードした画像を読み込む
+        qr_image = Image.open("line-qr.png")
+        
+        # 画像を表示（width=200 で大きさを調整）
+        st.image(qr_image, caption="My LINE QR Code", width=200)
+        
+        st.success("👆 スマホのカメラで読み取ってください")
+        
+    except FileNotFoundError:
+        # 画像がない場合の予備表示
+        st.warning("⚠️ QRコード画像（line-qr.png）がGitHubに見つかりません。")
+        st.info("ステップ2の手順で画像をアップロードしてください。")
+    # --------------------------
 
-# --- 応援歌エディタへのリンク（自作アプリの宣伝） ---
+# --- 応援歌エディタへのリンク ---
 st.divider()
 st.write("👇 最近作ったアプリ")
 if st.button("🎺 応援歌エディタを開く"):
-    st.write("（ここに自分のアプリのURLをリンクさせる）")
+    # ここに自分の応援歌アプリのURLをリンクさせる
+    st.write("（アプリのURLをここに貼ってください）")
